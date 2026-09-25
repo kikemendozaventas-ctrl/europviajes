@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EuropViajes | Agenda tu asesoría de viaje</title>
+  <meta name="description" content="EuropViajes diseña tu viaje a Europa a medida. Agenda una reunión gratuita con un asesor.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --surface: #ffffff;
+      --text: #1c2230;
+      --muted: #6b7280;
+      --line: #e7e3dc;
+      --accent: #1f3a5f;
+      --accent-hover: #162b47;
+      --gold: #b08d57;
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .logo span { color: var(--gold); }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px 22px;
+      font: 500 0.95rem "Inter", sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 88px 0 96px;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .features {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.98rem;
+    }
+    .features svg {
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
+    /* Form card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 40px;
+      box-shadow: 0 20px 50px -30px rgba(28, 34, 48, 0.25);
+    }
+    .card h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      font-size: 1.9rem;
+      margin-bottom: 6px;
+    }
+    .card p.sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+    .field { margin-bottom: 18px; }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font: 400 0.95rem "Inter", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    .card .btn { width: 100%; padding: 14px; margin-top: 6px; }
+    .note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 40px 10px;
+    }
+    .success svg { color: var(--gold); margin-bottom: 16px; }
+    .success h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .success p { color: var(--muted); }
+
+    /* Steps */
+    .steps {
+      border-top: 1px solid var(--line);
+      padding: 80px 0;
+    }
+    .steps h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .step-num {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .step h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .step p { color: var(--muted); font-size: 0.95rem; }
+    .steps-cta { text-align: center; margin-top: 56px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 48px; padding: 56px 0 72px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 520px) {
+      .container { padding: 0 16px; }
+      .card { padding: 28px 20px; }
+      .row { grid-template-columns: 1fr; gap: 0; }
+      .nav .btn { padding: 10px 14px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Europ<span>Viajes</span></a>
+      <a href="#agendar" class="btn btn-outline">Agendar reunión</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <span class="eyebrow">Viajes a medida por Europa</span>
+        <h1>Tu viaje a Europa, planificado por expertos.</h1>
+        <p class="lead">
+          Agenda una reunión gratuita de 30 minutos con uno de nuestros asesores
+          y diseñemos juntos un itinerario hecho a tu medida.
+        </p>
+        <ul class="features">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Asesoría personalizada y sin compromiso
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Vuelos, hoteles, traslados y tours en un solo lugar
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            Acompañamiento antes, durante y después del viaje
+          </li>
+        </ul>
+      </div>
+
+      <div class="card" id="agendar">
+        <form id="booking-form" novalidate>
+          <h2>Agenda tu reunión</h2>
+          <p class="sub">Déjanos tus datos y te confirmaremos el horario.</p>
+
+          <div class="field">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" name="telefono" autocomplete="tel" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="fecha">Fecha preferida</label>
+              <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div class="field">
+              <label for="hora">Horario</label>
+              <select id="hora" name="hora" required>
+                <option value="">Selecciona</option>
+                <option>Mañana (9:00 – 12:00)</option>
+                <option>Tarde (12:00 – 16:00)</option>
+                <option>Noche (16:00 – 19:00)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="mensaje">¿Qué destino tienes en mente? <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
+            <textarea id="mensaje" name="mensaje" placeholder="Ej.: Italia y Francia, 12 días en mayo"></textarea>
+          </div>
+
+          <button type="submit" class="btn">Agendar reunión gratuita</button>
+          <p class="note">Sin costo · Sin compromiso · Respuesta en menos de 24 h</p>
+        </form>
+
+        <div class="success" id="success" role="status" aria-live="polite">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+          <h3>¡Solicitud recibida!</h3>
+          <p>Un asesor de EuropViajes te contactará pronto para confirmar tu reunión.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div class="container">
+        <h2>Así de simple</h2>
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-num">01</div>
+            <h3>Agenda</h3>
+            <p>Elige el día y horario que mejor te acomode.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <h3>Conversamos</h3>
+            <p>Nos cuentas tus ideas, fechas y presupuesto.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <h3>Recibe tu propuesta</h3>
+            <p>Te enviamos un itinerario personalizado listo para reservar.</p>
+          </div>
+        </div>
+        <div class="steps-cta">
+          <a href="#agendar" class="btn">Agendar mi reunión</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> EuropViajes. Todos los derechos reservados.</span>
+      <span>contacto@europviajes.com</span>
+    </div>
+  </footer>
+
+  <script>
+    // Para recibir las solicitudes, pega aquí la URL de tu formulario
+    // (por ejemplo, Formspree: https://formspree.io/f/xxxxxxx).
+    const FORM_ENDPOINT = "";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("booking-form");
+    const fecha = document.getElementById("fecha");
+    fecha.min = new Date().toISOString().split("T")[0];
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      let valid = true;
+      form.querySelectorAll("[required]").forEach((el) => {
+        const ok = el.checkValidity();
+        el.style.borderColor = ok ? "" : "#c0392b";
+        if (!ok) valid = false;
+      });
+      if (!valid) return;
+
+      const button = form.querySelector("button");
+      button.disabled = true;
+      button.textContent = "Enviando…";
+
+      try {
+        if (FORM_ENDPOINT) {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { Accept: "application/json" },
+            body: new FormData(form),
+          });
+          if (!res.ok) throw new Error("Error al enviar");
+        }
+        form.style.display = "none";
+        document.getElementById("success").style.display = "block";
+      } catch (err) {
+        button.disabled = false;
+        button.textContent = "Agendar reunión gratuita";
+        alert("No pudimos enviar tu solicitud. Inténtalo nuevamente.");
+      }
+    });
+  </script>
+</body>
+</html>
