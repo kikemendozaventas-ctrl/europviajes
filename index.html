@@ -3,668 +3,846 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EuropViajes | Agenda tu asesoría de viaje</title>
-  <meta name="description" content="EuropViajes diseña tu viaje a Europa a medida. Agenda una reunión gratuita con un asesor y cotiza tu seguro de viaje.">
+  <title>EuropViajes | Seguro de viaje y asesoría para viajar a Europa</title>
+  <meta name="description" content="Seguros de viaje internacionales, válidos para el visado Schengen, y seguros dentro de España. Te explicamos cada cobertura antes de contratar. Asesoría gratuita para planificar tu viaje a Europa.">
   <link rel="icon" href="img/favicon.png" type="image/png">
+  <meta property="og:title" content="EuropViajes | Viaja a Europa sabiendo que estás cubierto">
+  <meta property="og:description" content="Seguros de viaje explicados con claridad y asesoría gratuita para planificar tu viaje a Europa.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1523225918988-00624e6d8fee?w=1200&q=75&auto=format&fit=crop">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Paleta tomada de la ilustración de la marca */
-      --bg: #f4fbfd;
-      --surface: #ffffff;
-      --sky-soft: #e3f6fc;
-      --text: #10303c;
-      --muted: #587079;
-      --line: #d3ebf2;
-      --accent: #0a86b0;
-      --accent-hover: #076a8c;
-      --gold: #3f9a1c;
+      --ink: #10303c;
+      --ink-soft: #3d5a66;
+      --atlantic: #0a86b0;
+      --atlantic-deep: #076a8c;
       --sun: #f7b500;
-      --radius: 10px;
+      --arrival: #3f9a1c;
+      --mist: #f4fbfd;
+      --foam: #e4f2f7;
+      --line: #cfe4ec;
+      --white: #ffffff;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Instrument Sans", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
     body {
-      font-family: "Inter", system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
       line-height: 1.6;
+      color: var(--ink);
+      background: var(--mist);
       -webkit-font-smoothing: antialiased;
     }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; border-radius: 4px; }
 
-    .container {
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 24px;
+    .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+    h1, h2, h3.serif {
+      font-family: var(--serif);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.05;
     }
+    h2 { font-size: clamp(2.2rem, 4.2vw, 3.3rem); margin-bottom: 18px; }
+    .intro { color: var(--ink-soft); max-width: 60ch; font-size: 1.125rem; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font: 600 1rem/1 var(--sans);
+      padding: 17px 26px;
+      border-radius: 999px;
+      border: 1.5px solid transparent;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .btn-primary { background: var(--atlantic); color: var(--white); }
+    .btn-primary:hover { background: var(--atlantic-deep); }
+    .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .btn-ghost:hover { background: var(--ink); color: var(--white); }
+    .btn-light { background: var(--white); color: var(--ink); }
+    .btn-light:hover { background: var(--foam); }
 
     /* Header */
-    header {
+    .site-header {
+      position: sticky; top: 0; z-index: 20;
+      background: var(--mist);
       border-bottom: 1px solid var(--line);
     }
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-    }
-    .logo {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-    }
-    .logo span { color: var(--gold); }
-    .logo img { display: block; height: 52px; width: auto; }
-
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      padding: 12px 22px;
-      font: 500 0.95rem "Inter", sans-serif;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-    .btn:hover { background: var(--accent-hover); }
-    .btn-outline {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-    }
-    .btn-outline:hover { background: var(--accent); color: #fff; }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+    .logo img { height: 50px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { text-decoration: none; font-weight: 500; font-size: .98rem; }
+    .nav-links a:hover { color: var(--atlantic); }
+    .nav .btn { padding: 13px 22px; font-size: .95rem; }
 
     /* Hero */
-    .hero-wrap {
-      background: linear-gradient(180deg, var(--sky-soft) 0%, var(--bg) 100%);
+    .hero { padding: 72px 0 96px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; }
+    .hero h1 { font-size: clamp(3rem, 6.4vw, 5.4rem); margin-bottom: 28px; max-width: 11ch; }
+    .hero .lead { font-size: 1.2rem; color: var(--ink-soft); max-width: 46ch; margin-bottom: 36px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 44px; }
+    .assurances { list-style: none; display: grid; gap: 12px; }
+    .assurances li { display: flex; gap: 12px; align-items: flex-start; }
+    .assurances svg { flex-shrink: 0; margin-top: 3px; color: var(--arrival); }
+
+    .hero-visual { position: relative; }
+    .hero-photo {
+      border-radius: 320px 320px 28px 28px;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--foam);
     }
-    .hero-img {
-      display: block;
-      width: 200px;
-      max-width: 100%;
-      height: auto;
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .route {
+      position: absolute; inset: -6% -8% -4% -14%;
+      width: 122%; height: 110%;
+      pointer-events: none; overflow: visible;
+    }
+    .route path {
+      fill: none; stroke-linecap: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: draw 2.2s cubic-bezier(.6,.1,.2,1) .4s forwards;
+    }
+    .route .trail { stroke: var(--atlantic); stroke-width: .9; }
+    .route .sun { fill: var(--sun); transform-box: fill-box; transform-origin: center; transform: scale(0); animation: rise .5s ease-out 2.4s forwards; }
+    .route .dep { fill: var(--arrival); }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes rise { to { transform: scale(1); } }
+    @media (prefers-reduced-motion: reduce) {
+      .route path { animation: none; stroke-dashoffset: 0; }
+      .route .sun { animation: none; transform: scale(1); }
+    }
+    .photo-note {
+      position: absolute; left: -28px; bottom: 36px;
+      background: var(--white);
       border-radius: 18px;
-      margin-bottom: 28px;
-      box-shadow: 0 16px 36px -20px rgba(10, 134, 176, 0.55);
+      padding: 16px 20px;
+      max-width: 270px;
+      box-shadow: 0 18px 40px -22px rgba(16,48,60,.45);
+      font-size: .95rem; line-height: 1.45;
     }
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 64px;
-      align-items: center;
-      padding: 88px 0 96px;
-    }
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 500;
-      font-size: clamp(2.5rem, 5vw, 3.75rem);
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-    .lead {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 480px;
-      margin-bottom: 36px;
-    }
-    .features {
-      list-style: none;
-      display: grid;
-      gap: 14px;
-    }
-    .features li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.98rem;
-    }
-    .features svg {
-      flex-shrink: 0;
-      color: var(--gold);
-    }
-
-    /* Form card */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 40px;
-      box-shadow: 0 20px 50px -30px rgba(28, 34, 48, 0.25);
-    }
-    .card h2 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 600;
-      font-size: 1.9rem;
-      margin-bottom: 6px;
-    }
-    .card p.sub {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 28px;
-    }
-    .field { margin-bottom: 18px; }
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px 14px;
-      font: 400 0.95rem "Inter", sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      transition: border-color 0.2s ease, background 0.2s ease;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      background: #fff;
-    }
-    textarea { resize: vertical; min-height: 80px; }
-    .card .btn { width: 100%; padding: 14px; margin-top: 6px; }
-    .note {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 14px;
-    }
-
-    .success {
-      display: none;
-      text-align: center;
-      padding: 40px 10px;
-    }
-    .success svg { color: var(--gold); margin-bottom: 16px; }
-    .success h3 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .success p { color: var(--muted); }
-
-    /* Calendario incrustado */
-    .calendar { display: none; }
-    .calendar iframe {
-      width: 100%;
-      height: 640px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #fff;
-    }
-    .switch-link {
-      display: block;
-      margin-top: 16px;
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--muted);
-      background: none;
-      border: 0;
-      width: 100%;
-      cursor: pointer;
-      text-decoration: underline;
-      font-family: inherit;
-    }
-
-    /* Nav links */
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-    .nav-link {
-      color: var(--text);
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-decoration: none;
-    }
-    .nav-link:hover { color: var(--gold); }
+    .photo-note strong { display: block; font-weight: 600; margin-bottom: 2px; }
 
     /* Insurance */
-    .insurance {
-      border-top: 1px solid var(--line);
-      padding: 80px 0;
-      background: var(--sky-soft);
-    }
-    .section-head {
-      text-align: center;
-      max-width: 560px;
-      margin: 0 auto 48px;
-    }
-    .section-head h2 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 500;
-      font-size: 2.2rem;
-      line-height: 1.2;
-      margin-bottom: 12px;
-    }
-    .section-head p { color: var(--muted); }
-    .insurance-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 880px;
-      margin: 0 auto;
-    }
-    .plan {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 32px;
-      background: var(--surface);
-      border-top: 4px solid var(--accent);
-    }
-    .plan:nth-child(2) { border-top-color: var(--gold); }
-    .plan h3 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .plan-desc {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-    }
-    .plan-list {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-      margin-bottom: 28px;
-      flex-grow: 1;
-    }
-    .plan-list li {
-      position: relative;
-      padding-left: 20px;
-      font-size: 0.95rem;
-    }
-    .plan-list li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.6em;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--sun);
-    }
-    .plan .btn { text-align: center; }
+    .insurance { background: var(--white); padding: 104px 0; border-top: 1px solid var(--line); }
+    .insurance-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; margin-bottom: 56px; }
+    .compare-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 40px; align-items: start; }
 
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .footer-links a {
-      color: var(--accent);
-      font-weight: 500;
-      text-decoration: none;
-    }
-    .footer-links a:hover { text-decoration: underline; }
+    .compare { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    .compare caption { text-align: left; color: var(--ink-soft); font-size: .92rem; caption-side: bottom; padding-top: 16px; }
+    .compare th, .compare td { padding: 16px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+    .compare thead th { vertical-align: bottom; border-bottom: 2px solid var(--ink); padding-bottom: 18px; }
+    .compare thead th .plan-name { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; display: block; line-height: 1.1; }
+    .compare thead th .plan-sub { font-weight: 400; font-size: .9rem; color: var(--ink-soft); }
+    .compare td { text-align: center; width: 22%; }
+    .compare tbody th { font-weight: 500; }
+    .yes { color: var(--arrival); }
+    .no { color: #9bb3bc; }
+    .compare tfoot td, .compare tfoot th { border-bottom: 0; padding-top: 24px; }
+    .compare tfoot .btn { width: 100%; padding: 14px 10px; font-size: .92rem; }
 
-    /* Steps */
-    .steps {
-      border-top: 1px solid var(--line);
-      padding: 80px 0;
+    .schengen {
+      background: var(--ink); color: var(--white);
+      border-radius: 28px; padding: 36px 32px;
     }
-    .steps h2 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 500;
-      font-size: 2.2rem;
-      text-align: center;
-      margin-bottom: 48px;
+    .schengen h3 { font-size: 2rem; margin-bottom: 10px; }
+    .schengen p { color: #cfe3ea; margin-bottom: 22px; }
+    .schengen ul { list-style: none; display: grid; gap: 14px; margin-bottom: 24px; }
+    .schengen li { display: flex; gap: 12px; }
+    .schengen li svg { flex-shrink: 0; margin-top: 4px; color: var(--sun); }
+    .schengen .fine { font-size: .9rem; color: #a9c7d2; margin: 0; }
+
+    /* Quote form */
+    .quote { margin-top: 88px; display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; align-items: start; }
+    .quote-copy, .booking-copy { position: sticky; top: 110px; }
+    .quote-copy p { color: var(--ink-soft); margin-bottom: 20px; max-width: 42ch; }
+    .form-panel { background: var(--foam); border-radius: 28px; padding: 40px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { margin-bottom: 18px; }
+    label, legend { display: block; font-size: .92rem; font-weight: 600; margin-bottom: 7px; }
+    .optional { font-weight: 400; color: var(--ink-soft); }
+    input, select, textarea {
+      width: 100%; padding: 14px 16px;
+      font: 400 1rem var(--sans); color: var(--ink);
+      background: var(--white);
+      border: 1.5px solid var(--line); border-radius: 12px;
+      transition: border-color .15s ease;
     }
-    .steps-grid {
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--atlantic); }
+    input[aria-invalid="true"], select[aria-invalid="true"] { border-color: #b3261e; }
+    textarea { resize: vertical; min-height: 88px; }
+    fieldset { border: 0; margin-bottom: 18px; }
+    .segmented { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .segmented input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .segmented label {
+      margin: 0; font-weight: 500; text-align: center; cursor: pointer;
+      padding: 13px 10px; border-radius: 12px; background: var(--white);
+      border: 1.5px solid var(--line);
+    }
+    .segmented input:checked + label { border-color: var(--atlantic); color: var(--atlantic); box-shadow: inset 0 0 0 1px var(--atlantic); }
+    .segmented input:focus-visible + label { outline: 3px solid var(--sun); outline-offset: 2px; }
+    .form-panel .btn { width: 100%; margin-top: 6px; }
+    .privacy { font-size: .88rem; color: var(--ink-soft); margin-top: 14px; }
+    .form-error { display: none; color: #b3261e; font-size: .92rem; margin-top: 12px; }
+    .done { display: none; text-align: left; padding: 8px 0; }
+    .done h3 { font-size: 2.1rem; margin-bottom: 10px; }
+    .done p { color: var(--ink-soft); }
+    .done svg { color: var(--arrival); margin-bottom: 16px; }
+
+    /* Commitments */
+    .commitments { padding: 104px 0; }
+    .commit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; margin-top: 52px; }
+    .commit { border-top: 2px solid var(--ink); padding-top: 22px; }
+    .commit h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; line-height: 1.35; }
+    .commit p { color: var(--ink-soft); font-size: 1rem; }
+
+    /* Process */
+    .process { background: var(--foam); padding: 104px 0; }
+    .steps { list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; position: relative; }
+    .steps::before { content: ""; position: absolute; top: 23px; left: 24px; right: 12%; height: 2px; background: var(--atlantic); opacity: .35; }
+    .steps li { counter-increment: step; position: relative; padding-right: 28px; }
+    .steps li::before {
+      content: counter(step);
+      display: grid; place-items: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--white); border: 2px solid var(--atlantic); color: var(--atlantic);
+      font-family: var(--serif); font-size: 1.5rem;
+      margin-bottom: 22px; position: relative;
+    }
+    .steps li:last-child::before { background: var(--sun); border-color: var(--sun); color: var(--ink); }
+    .steps h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .steps p { color: var(--ink-soft); font-size: 1rem; }
+
+    /* Trips */
+    .trips { padding: 104px 0 0; }
+    .trips-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; margin-bottom: 48px; }
+    .includes { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+    .includes li { background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: .95rem; }
+    .mosaic {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 14px;
     }
-    .step-num {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 2.4rem;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 12px;
+    .mosaic figure { position: relative; overflow: hidden; border-radius: 22px; background: var(--foam); }
+    .mosaic figure:first-child { grid-row: span 2; border-radius: 22px 22px 22px 180px; }
+    .mosaic img { width: 100%; height: 100%; object-fit: cover; }
+    .mosaic figure::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(16,48,60,.55)); pointer-events: none; }
+    .mosaic figcaption { z-index: 1; }
+    .mosaic figure:first-child figcaption { left: auto; right: 18px; }
+    .mosaic figcaption {
+      position: absolute; left: 16px; bottom: 14px;
+      color: var(--white); font-family: var(--serif); font-size: 1.7rem; line-height: 1;
+      text-shadow: 0 1px 14px rgba(0,0,0,.45);
     }
-    .step h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .step p { color: var(--muted); font-size: 0.95rem; }
-    .steps-cta { text-align: center; margin-top: 56px; }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
-      font-size: 0.85rem;
-      color: var(--muted);
+    /* Booking */
+    .booking { padding: 104px 0; }
+    .booking-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; align-items: start; }
+    .booking-copy p { color: var(--ink-soft); margin-bottom: 18px; max-width: 44ch; }
+    .agenda-list { list-style: none; display: grid; gap: 12px; margin: 26px 0; }
+    .agenda-list li { display: flex; gap: 12px; }
+    .agenda-list svg { flex-shrink: 0; margin-top: 3px; color: var(--arrival); }
+    .hours { font-size: .95rem; color: var(--ink-soft); }
+    .calendar-panel { background: var(--white); border: 1px solid var(--line); border-radius: 28px; padding: 16px; }
+    .calendar-panel iframe { width: 100%; height: 660px; border: 0; border-radius: 16px; display: block; }
+    .switch-link {
+      display: block; width: 100%; margin-top: 14px; padding: 8px;
+      background: none; border: 0; cursor: pointer;
+      font: 500 .95rem var(--sans); color: var(--atlantic); text-decoration: underline; text-underline-offset: 3px;
     }
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
+    #booking-form-panel { display: none; }
+
+    /* FAQ */
+    .faq { background: var(--white); padding: 104px 0; border-top: 1px solid var(--line); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: start; }
+    .faq details { border-bottom: 1px solid var(--line); }
+    .faq details:first-child { border-top: 1px solid var(--line); }
+    .faq summary {
+      list-style: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+      padding: 22px 0; font-weight: 600; font-size: 1.08rem;
     }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: ""; flex-shrink: 0; width: 12px; height: 12px;
+      border-right: 2px solid var(--atlantic); border-bottom: 2px solid var(--atlantic);
+      transform: rotate(45deg) translateY(-4px); transition: transform .2s ease;
+    }
+    .faq details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
+    .faq details p { padding: 0 0 22px; color: var(--ink-soft); max-width: 64ch; }
+
+    /* Closing */
+    .closing { background: var(--ink); color: var(--white); padding: 96px 0; }
+    .closing-inner { display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+    .closing h2 { max-width: 16ch; margin: 0; }
+    .closing-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .closing .btn-ghost { color: var(--white); border-color: rgba(255,255,255,.6); }
+    .closing .btn-ghost:hover { background: var(--white); color: var(--ink); }
+
+    footer { background: var(--ink); color: #a9c7d2; font-size: .92rem; padding: 0 0 104px; }
+    .footer-inner { border-top: 1px solid rgba(255,255,255,.14); padding-top: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px 32px; }
+    footer a { color: var(--white); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 14px 28px; }
+
+    /* Floating contact */
+    .float-contact {
+      position: fixed; right: 20px; bottom: 20px; z-index: 30;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--arrival); color: var(--white);
+      padding: 14px 20px; border-radius: 999px;
+      font-weight: 600; text-decoration: none;
+      box-shadow: 0 14px 30px -12px rgba(16,48,60,.55);
+    }
+    .float-contact:hover { background: #33821a; }
 
     /* Responsive */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; gap: 48px; padding: 56px 0 72px; }
-      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
-      .insurance-grid { grid-template-columns: 1fr; }
+    @media (max-width: 1020px) {
+      .quote-copy, .booking-copy { position: static; }
+      .nav-links li:not(:last-child) { display: none; }
+      .hero-grid, .insurance-head, .compare-layout, .quote, .trips-head, .booking-grid, .faq-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { max-width: 520px; margin: 0 auto; width: 100%; }
+      .commit-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+      .steps::before { display: none; }
     }
     @media (max-width: 640px) {
-      .hide-sm { display: none; }
-      .nav-links { gap: 14px; }
-    }
-    @media (max-width: 520px) {
-      .container { padding: 0 16px; }
-      .card { padding: 28px 20px; }
-      .row { grid-template-columns: 1fr; gap: 0; }
-      .nav .btn { padding: 10px 14px; font-size: 0.85rem; }
+      .wrap { padding: 0 16px; }
+      body { font-size: 1rem; }
+      .nav { height: 66px; }
+      .logo img { height: 40px; }
+      .nav .btn { padding: 11px 16px; font-size: .88rem; }
+      .hero { padding: 44px 0 64px; }
+      .photo-note { left: 12px; right: 12px; bottom: 14px; max-width: none; }
+      .insurance, .commitments, .process, .booking, .faq { padding: 72px 0; }
+      .trips { padding-top: 72px; }
+      .compare th, .compare td { padding: 13px 6px; font-size: .92rem; }
+      .compare thead th .plan-name { font-size: 1.3rem; }
+      .compare td { width: 26%; }
+      .compare tfoot .btn { font-size: .84rem; padding: 12px 6px; }
+      .form-panel { padding: 26px 18px; }
+      .grid-2 { grid-template-columns: 1fr; gap: 0; }
+      .commit-grid, .steps { grid-template-columns: 1fr; }
+      .mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 300px 180px; }
+      .mosaic figure:first-child { grid-column: span 2; grid-row: auto; border-radius: 22px 22px 22px 120px; }
+      .mosaic figure:nth-child(n+4) { display: none; }
+      .float-contact span { display: none; }
+      .float-contact { padding: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="container nav">
+  <header class="site-header">
+    <div class="wrap nav">
       <a href="#" class="logo"><img src="img/logo-europviajes.webp" alt="EuropViajes" width="241" height="60"></a>
-      <nav class="nav-links">
-        <a href="#seguros" class="nav-link hide-sm">Seguros</a>
-        <a href="https://linktr.ee/europviajes" target="_blank" rel="noopener" class="nav-link">Contáctanos</a>
-        <a href="#agendar" class="btn btn-outline">Agendar reunión</a>
-      </nav>
+      <ul class="nav-links">
+        <li><a href="#seguros">Seguros</a></li>
+        <li><a href="#como-trabajamos">Cómo trabajamos</a></li>
+        <li><a href="#viajes">Viajes a medida</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="#cotizar" class="btn btn-primary">Cotizar seguro</a></li>
+      </ul>
     </div>
   </header>
 
   <main>
-    <div class="hero-wrap">
-    <section class="container hero">
-      <div>
-        <img src="img/europviajes.jpg" alt="Ilustración de EuropViajes con la Torre Eiffel, el Big Ben, el Coliseo y globos aerostáticos" class="hero-img" width="150" height="150">
-        <span class="eyebrow">Viajes a medida por Europa</span>
-        <h1>Tu viaje a Europa, planificado por expertos.</h1>
-        <p class="lead">
-          Agenda una reunión gratuita de 30 minutos con uno de nuestros asesores
-          y diseñemos juntos un itinerario hecho a tu medida.
-        </p>
-        <ul class="features">
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            Asesoría personalizada y sin compromiso
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            Vuelos, hoteles, traslados y tours en un solo lugar
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            Acompañamiento antes, durante y después del viaje
-          </li>
-          <li>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            Seguros de viaje internacionales y dentro de España
-          </li>
-        </ul>
-      </div>
-
-      <div class="card" id="agendar">
-        <div class="calendar" id="calendar">
-          <h2>Agenda tu reunión</h2>
-          <p class="sub">Elige el día y la hora que mejor te acomode. La cita queda confirmada al instante.</p>
-          <iframe id="calendar-frame" title="Calendario de reservas de EuropViajes" loading="lazy"></iframe>
-          <button type="button" class="switch-link" id="show-form">¿No encuentras horario? Déjanos tus datos y te contactamos</button>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Viaja a Europa sabiendo que estás cubierto.</h1>
+          <p class="lead">
+            Te ayudamos a elegir un seguro de viaje que entiendas antes de pagarlo:
+            qué cubre, hasta cuánto y a quién llamar si algo pasa. Y si lo necesitas,
+            planificamos el viaje contigo.
+          </p>
+          <div class="hero-actions">
+            <a href="#cotizar" class="btn btn-primary">Cotizar mi seguro</a>
+            <a href="#agendar" class="btn btn-ghost">Agendar asesoría gratuita</a>
+          </div>
+          <ul class="assurances">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              Seguros válidos para solicitar el visado Schengen
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              Cotizar es gratis y no te compromete a nada
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              Respuesta de una persona real en menos de 24 horas
+            </li>
+          </ul>
         </div>
 
-        <form id="booking-form" novalidate>
-          <h2>Agenda tu reunión</h2>
-          <p class="sub">Déjanos tus datos y te confirmaremos el horario.</p>
-
-          <div class="field">
-            <label for="motivo">¿En qué te ayudamos?</label>
-            <select id="motivo" name="motivo" required>
-              <option>Planificar un viaje</option>
-              <option>Seguro de viaje internacional</option>
-              <option>Seguro de viaje en España</option>
-              <option>Viaje + seguro</option>
-            </select>
+        <div class="hero-visual">
+          <div class="hero-photo">
+            <img
+              src="https://images.unsplash.com/photo-1523225918988-00624e6d8fee?w=1000&q=75&auto=format&fit=crop"
+              srcset="https://images.unsplash.com/photo-1523225918988-00624e6d8fee?w=640&q=75&auto=format&fit=crop 640w,
+                      https://images.unsplash.com/photo-1523225918988-00624e6d8fee?w=1000&q=75&auto=format&fit=crop 1000w,
+                      https://images.unsplash.com/photo-1523225918988-00624e6d8fee?w=1400&q=75&auto=format&fit=crop 1400w"
+              sizes="(max-width: 1020px) 520px, 560px"
+              alt="Pareja de viajeros con sus maletas mirando el mar desde un paseo marítimo"
+              width="1000" height="1250" fetchpriority="high">
           </div>
-
-          <div class="field">
-            <label for="nombre">Nombre completo</label>
-            <input type="text" id="nombre" name="nombre" autocomplete="name" required>
-          </div>
-
-          <div class="row">
-            <div class="field">
-              <label for="email">Correo electrónico</label>
-              <input type="email" id="email" name="email" autocomplete="email" required>
-            </div>
-            <div class="field">
-              <label for="telefono">Teléfono / WhatsApp</label>
-              <input type="tel" id="telefono" name="telefono" autocomplete="tel" required>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="field">
-              <label for="fecha">Fecha preferida</label>
-              <input type="date" id="fecha" name="fecha" required>
-            </div>
-            <div class="field">
-              <label for="hora">Horario</label>
-              <select id="hora" name="hora" required>
-                <option value="">Selecciona</option>
-                <option>Mañana (9:00 – 12:00)</option>
-                <option>Tarde (12:00 – 16:00)</option>
-                <option>Noche (16:00 – 19:00)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="mensaje">¿Qué destino tienes en mente? <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
-            <textarea id="mensaje" name="mensaje" placeholder="Ej.: Italia y Francia, 12 días en mayo"></textarea>
-          </div>
-
-          <button type="submit" class="btn">Agendar reunión gratuita</button>
-          <p class="note">Sin costo · Sin compromiso · Respuesta en menos de 24 h</p>
-          <button type="button" class="switch-link" id="show-calendar" hidden>Ver horarios disponibles en el calendario</button>
-        </form>
-
-        <div class="success" id="success" role="status" aria-live="polite">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
-          <h3>¡Solicitud recibida!</h3>
-          <p>Un asesor de EuropViajes te contactará pronto para confirmar tu reunión.</p>
+          <svg class="route" viewBox="0 0 122 137.5" aria-hidden="true">
+            <path class="trail" pathLength="1" d="M5 118 C 17 69, 49 22, 107 16.5"/>
+            <circle class="dep" cx="5" cy="118" r="1.7"/>
+            <circle class="sun" cx="107" cy="16.5" r="4.2"/>
+          </svg>
+          <p class="photo-note">
+            <strong>Asistencia en viaje las 24 horas</strong>
+            Si te enfermas o pierdes el equipaje, sabes exactamente a quién llamar.
+          </p>
         </div>
       </div>
     </section>
-    </div>
 
     <section class="insurance" id="seguros">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Seguros de viaje</span>
-          <h2>Viaja tranquilo, estés donde estés.</h2>
-          <p>Te ayudamos a elegir el seguro adecuado para tu viaje, ya sea por el mundo o dentro de España.</p>
+      <div class="wrap">
+        <div class="insurance-head">
+          <div>
+            <h2>Un seguro que entiendes antes de contratarlo.</h2>
+            <p class="intro">
+              Comparamos opciones por ti y te explicamos cada cobertura en palabras sencillas.
+              Así sabes qué incluye tu seguro antes de pagar, no cuando ya lo necesitas.
+            </p>
+          </div>
         </div>
-        <div class="insurance-grid">
-          <article class="plan">
-            <h3>Seguro internacional</h3>
-            <p class="plan-desc">Para viajes fuera de tu país de residencia, por Europa o el resto del mundo.</p>
-            <ul class="plan-list">
-              <li>Asistencia médica y hospitalización</li>
-              <li>Cancelación e interrupción del viaje</li>
-              <li>Pérdida o retraso de equipaje</li>
-              <li>Válido para visados Schengen</li>
+
+        <div class="compare-layout">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th scope="col"><span class="plan-sub">Coberturas habituales</span></th>
+                <th scope="col"><span class="plan-name">Internacional</span><span class="plan-sub">Europa y el mundo</span></th>
+                <th scope="col"><span class="plan-name">España</span><span class="plan-sub">Península e islas</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Asistencia médica y hospitalización</th><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+              <tr><th scope="row">Cancelación del viaje por imprevistos</th><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+              <tr><th scope="row">Pérdida o retraso de equipaje</th><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+              <tr><th scope="row">Asistencia 24 horas</th><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td></tr>
+              <tr><th scope="row">Válido para el visado Schengen</th><td class="yes" aria-label="Incluido"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></td><td class="no" aria-label="No aplica">—</td></tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row"></th>
+                <td><a href="#cotizar" class="btn btn-primary" data-plan="internacional">Cotizar</a></td>
+                <td><a href="#cotizar" class="btn btn-ghost" data-plan="espana">Cotizar</a></td>
+              </tr>
+            </tfoot>
+            <caption>Los límites y condiciones exactos dependen de la póliza que elijas. Te los enviamos por escrito antes de contratar.</caption>
+          </table>
+
+          <aside class="schengen" aria-labelledby="schengen-title">
+            <h3 class="serif" id="schengen-title">¿Necesitas el seguro para tu visado Schengen?</h3>
+            <p>El consulado exige un seguro de viaje que cumpla estos requisitos. Te ayudamos a que el tuyo los cumpla todos.</p>
+            <ul>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>Cobertura médica mínima de 30.000 €</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>Válido en todos los países del espacio Schengen</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>Vigente durante toda tu estancia</li>
+              <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>Incluye repatriación por motivos médicos</li>
             </ul>
-            <a href="#agendar" class="btn btn-outline" data-motivo="Seguro de viaje internacional">Cotizar seguro internacional</a>
-          </article>
-          <article class="plan">
-            <h3>Seguro en España</h3>
-            <p class="plan-desc">Para escapadas y viajes nacionales, dentro de la península, Baleares o Canarias.</p>
-            <ul class="plan-list">
-              <li>Asistencia médica en destino</li>
-              <li>Cancelación por imprevistos</li>
-              <li>Equipaje y objetos personales</li>
-              <li>Asistencia 24 horas</li>
-            </ul>
-            <a href="#agendar" class="btn btn-outline" data-motivo="Seguro de viaje en España">Cotizar seguro en España</a>
-          </article>
+            <p class="fine">Recibes el certificado del seguro por correo, listo para presentarlo con tu solicitud.</p>
+          </aside>
+        </div>
+
+        <div class="quote" id="cotizar">
+          <div class="quote-copy">
+            <h2>Recibe tu cotización.</h2>
+            <p>Cuéntanos tu viaje y te enviamos las opciones que encajan, con el precio y lo que cubre cada una.</p>
+            <p>Si tienes dudas, las resolvemos contigo por WhatsApp o en una videollamada antes de que decidas.</p>
+          </div>
+
+          <div class="form-panel">
+            <form id="quote-form" novalidate>
+              <input type="hidden" name="_subject" value="Nueva cotización de seguro - EuropViajes">
+              <input type="hidden" name="motivo" value="Cotización de seguro de viaje">
+              <fieldset>
+                <legend>Tipo de seguro</legend>
+                <div class="segmented">
+                  <input type="radio" id="tipo-int" name="tipo_seguro" value="Internacional" checked>
+                  <label for="tipo-int">Internacional</label>
+                  <input type="radio" id="tipo-esp" name="tipo_seguro" value="España">
+                  <label for="tipo-esp">Dentro de España</label>
+                </div>
+              </fieldset>
+
+              <div class="field">
+                <label for="q-destino">Destino</label>
+                <input type="text" id="q-destino" name="destino" placeholder="Ej.: Francia, Italia y Suiza" required>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="q-ida">Fecha de salida</label>
+                  <input type="date" id="q-ida" name="fecha_salida" required>
+                </div>
+                <div class="field">
+                  <label for="q-vuelta">Fecha de regreso</label>
+                  <input type="date" id="q-vuelta" name="fecha_regreso" required>
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="q-viajeros">Número de viajeros</label>
+                  <select id="q-viajeros" name="viajeros" required>
+                    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6 o más</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="q-edades">Edades de los viajeros</label>
+                  <input type="text" id="q-edades" name="edades" placeholder="Ej.: 34 y 36" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="q-nombre">Nombre completo</label>
+                <input type="text" id="q-nombre" name="nombre" autocomplete="name" required>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="q-email">Correo electrónico</label>
+                  <input type="email" id="q-email" name="email" autocomplete="email" required>
+                </div>
+                <div class="field">
+                  <label for="q-tel">WhatsApp</label>
+                  <input type="tel" id="q-tel" name="telefono" autocomplete="tel" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="q-visado">¿Lo necesitas para un visado? <span class="optional">(opcional)</span></label>
+                <select id="q-visado" name="visado">
+                  <option value="">No lo sé</option>
+                  <option>Sí, para el visado Schengen</option>
+                  <option>No, no necesito visado</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Recibir mi cotización</button>
+              <p class="privacy">Usamos tus datos solo para enviarte la cotización. No los compartimos con nadie.</p>
+              <p class="form-error" role="alert">Revisa los campos marcados en rojo.</p>
+            </form>
+            <div class="done" role="status" aria-live="polite">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+              <h3 class="serif">Solicitud recibida.</h3>
+              <p>Te enviaremos tu cotización al correo en menos de 24 horas. Si es urgente, escríbenos por WhatsApp.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="steps">
-      <div class="container">
-        <h2>Así de simple</h2>
-        <div class="steps-grid">
-          <div class="step">
-            <div class="step-num">01</div>
-            <h3>Agenda</h3>
-            <p>Elige el día y horario que mejor te acomode.</p>
+    <section class="commitments">
+      <div class="wrap">
+        <h2>Lo que puedes esperar de nosotros.</h2>
+        <div class="commit-grid">
+          <div class="commit">
+            <h3>Te explicamos cada cobertura antes de pagar</h3>
+            <p>Sin tecnicismos. Si algo no está claro, lo repasamos contigo las veces que haga falta.</p>
           </div>
-          <div class="step">
-            <div class="step-num">02</div>
-            <h3>Conversamos</h3>
-            <p>Nos cuentas tus ideas, fechas y presupuesto.</p>
+          <div class="commit">
+            <h3>Todo por escrito</h3>
+            <p>Recibes las condiciones de la póliza y el certificado en tu correo, para tenerlos siempre a mano.</p>
           </div>
-          <div class="step">
-            <div class="step-num">03</div>
-            <h3>Recibe tu propuesta</h3>
-            <p>Te enviamos un itinerario personalizado listo para reservar.</p>
+          <div class="commit">
+            <h3>Una persona que te conoce</h3>
+            <p>Hablas siempre con tu asesor de EuropViajes, antes del viaje y mientras estás fuera.</p>
+          </div>
+          <div class="commit">
+            <h3>Sin compromiso</h3>
+            <p>Cotizar y asesorarte es gratis. Solo contratas si la opción te convence.</p>
           </div>
         </div>
-        <div class="steps-cta">
-          <a href="#agendar" class="btn">Agendar mi reunión</a>
+      </div>
+    </section>
+
+    <section class="process" id="como-trabajamos">
+      <div class="wrap">
+        <h2>Cómo trabajamos.</h2>
+        <p class="intro">Del primer mensaje hasta que vuelves a casa.</p>
+        <ol class="steps">
+          <li>
+            <h3>Nos cuentas tu viaje</h3>
+            <p>Destino, fechas y quién viaja. Por el formulario, WhatsApp o una videollamada.</p>
+          </li>
+          <li>
+            <h3>Te enviamos opciones claras</h3>
+            <p>Comparamos seguros y te mostramos qué cubre cada uno y cuánto cuesta.</p>
+          </li>
+          <li>
+            <h3>Eliges con calma</h3>
+            <p>Resolvemos tus dudas y contratas solo cuando estás seguro.</p>
+          </li>
+          <li>
+            <h3>Viajas acompañado</h3>
+            <p>Tienes tu certificado y nuestro contacto por si necesitas ayuda en destino.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="trips" id="viajes">
+      <div class="wrap">
+        <div class="trips-head">
+          <div>
+            <h2>¿Aún no has planificado el viaje? Lo hacemos contigo.</h2>
+            <p class="intro">Diseñamos un itinerario a tu medida por Europa y lo dejamos listo para reservar, con el seguro incluido si lo quieres.</p>
+          </div>
+          <ul class="includes" aria-label="Qué incluye la planificación">
+            <li>Vuelos</li><li>Hoteles</li><li>Traslados</li><li>Tours y entradas</li><li>Seguro de viaje</li>
+          </ul>
+        </div>
+
+        <div class="mosaic">
+          <figure>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=900&q=75&auto=format&fit=crop" alt="Casas blancas sobre el mar en Santorini" width="900" height="1100">
+            <figcaption>Grecia</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=700&q=75&auto=format&fit=crop" alt="El Coliseo de Roma al atardecer" width="700" height="500">
+            <figcaption>Italia</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=700&q=75&auto=format&fit=crop" alt="La Torre Eiffel bajo un cielo despejado" width="700" height="500">
+            <figcaption>Francia</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1688404808709-681acec3684b?w=700&q=75&auto=format&fit=crop" alt="Plaza de España de Sevilla reflejada en el agua" width="700" height="500">
+            <figcaption>España</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="https://images.unsplash.com/photo-1599069182504-a5127593e349?w=700&q=75&auto=format&fit=crop" alt="Tranvía amarillo subiendo una calle de Lisboa" width="700" height="500">
+            <figcaption>Portugal</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="booking" id="agendar">
+      <div class="wrap booking-grid">
+        <div class="booking-copy">
+          <h2>Agenda tu asesoría gratuita.</h2>
+          <p>Una videollamada con tu asesor para hablar de tu viaje o de tu seguro, sin costo y sin compromiso.</p>
+          <ul class="agenda-list">
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Elige el día y la hora; la cita queda confirmada al momento</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Recibes el enlace de la videollamada en tu correo</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Después te enviamos por escrito lo que hablamos</li>
+          </ul>
+          <p class="hours">Atendemos de lunes a viernes, de 9:00 a 14:00 y de 16:00 a 20:00 (hora de España).</p>
+        </div>
+
+        <div>
+          <div class="calendar-panel" id="calendar-panel">
+            <iframe id="calendar-frame" title="Calendario de citas de EuropViajes" loading="lazy"></iframe>
+            <button type="button" class="switch-link" id="show-form">¿Ningún horario te encaja? Déjanos tus datos y te llamamos</button>
+          </div>
+
+          <div class="form-panel" id="booking-form-panel">
+            <form id="booking-form" novalidate>
+              <input type="hidden" name="_subject" value="Nueva solicitud de asesoría - EuropViajes">
+              <div class="field">
+                <label for="b-motivo">¿En qué te ayudamos?</label>
+                <select id="b-motivo" name="motivo" required>
+                  <option>Planificar un viaje</option>
+                  <option>Seguro de viaje internacional</option>
+                  <option>Seguro de viaje en España</option>
+                  <option>Viaje y seguro</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="b-nombre">Nombre completo</label>
+                <input type="text" id="b-nombre" name="nombre" autocomplete="name" required>
+              </div>
+              <div class="grid-2">
+                <div class="field">
+                  <label for="b-email">Correo electrónico</label>
+                  <input type="email" id="b-email" name="email" autocomplete="email" required>
+                </div>
+                <div class="field">
+                  <label for="b-tel">WhatsApp</label>
+                  <input type="tel" id="b-tel" name="telefono" autocomplete="tel" required>
+                </div>
+              </div>
+              <div class="field">
+                <label for="b-mensaje">Cuéntanos tu idea <span class="optional">(opcional)</span></label>
+                <textarea id="b-mensaje" name="mensaje" placeholder="Ej.: Italia y Francia, 12 días en mayo, dos adultos"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Solicitar asesoría</button>
+              <p class="form-error" role="alert">Revisa los campos marcados en rojo.</p>
+              <button type="button" class="switch-link" id="show-calendar">Ver los horarios disponibles</button>
+            </form>
+            <div class="done" role="status" aria-live="polite">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+              <h3 class="serif">Solicitud recibida.</h3>
+              <p>Tu asesor te contactará en menos de 24 horas para acordar la llamada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="preguntas">
+      <div class="wrap faq-grid">
+        <div>
+          <h2>Preguntas frecuentes.</h2>
+          <p class="intro">¿Tienes otra duda? <a href="https://linktr.ee/europviajes" target="_blank" rel="noopener">Escríbenos</a> y te respondemos.</p>
+        </div>
+        <div>
+          <details>
+            <summary>¿Qué seguro necesito para pedir el visado Schengen?</summary>
+            <p>Uno con cobertura médica de al menos 30.000 €, válido en todos los países Schengen durante toda tu estancia y que incluya repatriación. Los seguros internacionales que te ofrecemos para este trámite cumplen esos requisitos y te damos el certificado para presentarlo.</p>
+          </details>
+          <details>
+            <summary>¿Qué hago si me enfermo o tengo un accidente durante el viaje?</summary>
+            <p>Llamas al teléfono de asistencia que aparece en tu certificado, disponible las 24 horas. Ellos te indican a qué centro médico ir. También puedes escribirnos y te ayudamos a gestionarlo.</p>
+          </details>
+          <details>
+            <summary>¿Puedo cancelar el viaje y recuperar lo que pagué?</summary>
+            <p>Si tu seguro incluye cancelación y el motivo está cubierto por la póliza (por ejemplo, una enfermedad), te reembolsan los gastos no recuperables hasta el límite contratado. Antes de contratar te explicamos qué motivos cubre tu seguro.</p>
+          </details>
+          <details>
+            <summary>¿Cubre enfermedades que ya tengo?</summary>
+            <p>Depende de la póliza. Algunas cubren urgencias por enfermedades preexistentes y otras no. Cuéntanoslo al cotizar y te recomendamos una opción que sí te proteja.</p>
+          </details>
+          <details>
+            <summary>¿Cuándo recibo el certificado del seguro?</summary>
+            <p>En cuanto se completa la contratación, lo recibes por correo electrónico en PDF, junto con las condiciones de la póliza.</p>
+          </details>
+          <details>
+            <summary>¿Cuánto cuesta la asesoría?</summary>
+            <p>Nada. La asesoría y la cotización son gratuitas. Solo pagas el seguro o el viaje si decides contratarlo.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="wrap closing-inner">
+        <h2>Tu próximo viaje, con todo en regla.</h2>
+        <div class="closing-actions">
+          <a href="#cotizar" class="btn btn-light">Cotizar mi seguro</a>
+          <a href="#agendar" class="btn btn-ghost">Agendar asesoría</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container footer-inner">
-      <span>© <span id="year"></span> EuropViajes. Todos los derechos reservados.</span>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> EuropViajes</span>
       <span class="footer-links">
-        <a href="https://linktr.ee/europviajes" target="_blank" rel="noopener">Contáctanos · Instagram y WhatsApp</a>
-        <span>kikemendozaventas@gmail.com</span>
+        <a href="https://linktr.ee/europviajes" target="_blank" rel="noopener">WhatsApp e Instagram</a>
+        <a href="mailto:kikemendozaventas@gmail.com">kikemendozaventas@gmail.com</a>
+        <a href="https://unsplash.com" target="_blank" rel="noopener">Fotografías de Unsplash</a>
       </span>
     </div>
   </footer>
 
+  <a class="float-contact" href="https://linktr.ee/europviajes" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4 5.2 5.2 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+    <span>Escríbenos</span>
+  </a>
+
   <script>
-    // Para recibir las solicitudes, pega aquí la URL de tu formulario
-    // (por ejemplo, Formspree: https://formspree.io/f/xxxxxxx).
+    // Endpoint de Formspree que recibe las solicitudes en tu correo.
     const FORM_ENDPOINT = "https://formspree.io/f/xrpbljde";
 
-    // Para mostrar tu calendario de citas, pega aquí su enlace público:
-    //  - Google Calendar: Calendario > Crear > "Agenda de citas" > Compartir > enlace
-    //    (https://calendar.app.google/xxxx o https://calendar.google.com/calendar/appointments/schedules/xxxx)
-    //  - Calendly: https://calendly.com/tu-usuario/reunion
-    // Si lo dejas vacío, se muestra solo el formulario.
+    // Agenda de citas de Google Calendar (kikemendozaventas@gmail.com).
     const CALENDAR_URL = "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1OlS-KeIeRdKSMD4SNFnmXqp5iAMWUeMZBAU8NOLUc_sJelEZiET2XolyAbemmtnumqd5E7Jzo?gv=true";
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    const form = document.getElementById("booking-form");
-    const fecha = document.getElementById("fecha");
-    fecha.min = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split("T")[0];
+    const ida = document.getElementById("q-ida");
+    const vuelta = document.getElementById("q-vuelta");
+    ida.min = today;
+    vuelta.min = today;
+    ida.addEventListener("change", () => { vuelta.min = ida.value || today; });
 
-    const calendar = document.getElementById("calendar");
-
+    // Calendario con formulario de respaldo
+    const calendarPanel = document.getElementById("calendar-panel");
+    const bookingPanel = document.getElementById("booking-form-panel");
     if (CALENDAR_URL) {
-      let src = CALENDAR_URL;
-      if (src.includes("calendly.com")) {
-        src += (src.includes("?") ? "&" : "?") + "hide_gdpr_banner=1&embed_domain=" + location.hostname + "&embed_type=Inline";
-      }
-      document.getElementById("calendar-frame").src = src;
-      calendar.style.display = "block";
-      form.style.display = "none";
-
-      const showCalendar = document.getElementById("show-calendar");
-      showCalendar.hidden = false;
-      document.getElementById("show-form").addEventListener("click", () => {
-        calendar.style.display = "none";
-        form.style.display = "block";
-      });
-      showCalendar.addEventListener("click", () => {
-        form.style.display = "none";
-        calendar.style.display = "block";
-      });
+      document.getElementById("calendar-frame").src = CALENDAR_URL;
+    } else {
+      calendarPanel.style.display = "none";
+      bookingPanel.style.display = "block";
+      document.getElementById("show-calendar").hidden = true;
     }
+    document.getElementById("show-form").addEventListener("click", () => {
+      calendarPanel.style.display = "none";
+      bookingPanel.style.display = "block";
+      document.getElementById("b-nombre").focus();
+    });
+    document.getElementById("show-calendar").addEventListener("click", () => {
+      bookingPanel.style.display = "none";
+      calendarPanel.style.display = "block";
+    });
 
-    // Los botones de "Cotizar" preseleccionan el motivo en el formulario,
-    // así que muestran el formulario en lugar del calendario.
-    document.querySelectorAll("[data-motivo]").forEach((link) => {
+    // Los botones "Cotizar" de la tabla preseleccionan el tipo de seguro
+    document.querySelectorAll("[data-plan]").forEach((link) => {
       link.addEventListener("click", () => {
-        document.getElementById("motivo").value = link.dataset.motivo;
-        calendar.style.display = "none";
-        form.style.display = "block";
+        document.getElementById(link.dataset.plan === "espana" ? "tipo-esp" : "tipo-int").checked = true;
       });
     });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    function wireForm(form, label) {
+      const panel = form.parentElement;
+      const error = form.querySelector(".form-error");
+      const submit = form.querySelector('button[type="submit"]');
 
-      let valid = true;
-      form.querySelectorAll("[required]").forEach((el) => {
-        const ok = el.checkValidity();
-        el.style.borderColor = ok ? "" : "#c0392b";
-        if (!ok) valid = false;
-      });
-      if (!valid) return;
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        let firstInvalid = null;
+        form.querySelectorAll("[required]").forEach((el) => {
+          const ok = el.checkValidity();
+          el.setAttribute("aria-invalid", ok ? "false" : "true");
+          if (!ok && !firstInvalid) firstInvalid = el;
+        });
+        if (firstInvalid) {
+          error.textContent = "Revisa los campos marcados en rojo.";
+          error.style.display = "block";
+          firstInvalid.focus();
+          return;
+        }
+        error.style.display = "none";
+        submit.disabled = true;
+        submit.textContent = "Enviando…";
 
-      const button = form.querySelector("button");
-      button.disabled = true;
-      button.textContent = "Enviando…";
-
-      try {
-        if (FORM_ENDPOINT) {
+        try {
           const res = await fetch(FORM_ENDPOINT, {
             method: "POST",
             headers: { Accept: "application/json" },
             body: new FormData(form),
           });
-          if (!res.ok) throw new Error("Error al enviar");
+          if (!res.ok) throw new Error("envío fallido");
+          form.style.display = "none";
+          panel.querySelector(".done").style.display = "block";
+        } catch (err) {
+          submit.disabled = false;
+          submit.textContent = label;
+          error.textContent = "No se pudo enviar. Comprueba tu conexión e inténtalo de nuevo, o escríbenos por WhatsApp.";
+          error.style.display = "block";
         }
-        form.style.display = "none";
-        document.getElementById("success").style.display = "block";
-      } catch (err) {
-        button.disabled = false;
-        button.textContent = "Agendar reunión gratuita";
-        alert("No pudimos enviar tu solicitud. Inténtalo nuevamente.");
-      }
-    });
+      });
+    }
+    wireForm(document.getElementById("quote-form"), "Recibir mi cotización");
+    wireForm(document.getElementById("booking-form"), "Solicitar asesoría");
   </script>
 </body>
 </html>
